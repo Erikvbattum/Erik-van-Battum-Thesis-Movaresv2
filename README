@@ -1,0 +1,5 @@
+This file, together with the file called documentation in this folder will aim to enable the user to understand and use the model contained in this folder.
+this file will focus on detailing how to use the model. For a more complete understanding of how the model works and why things are the way they are, please see the 'documentation' file.
+
+This folder, in addition to the documentation and this file, contains a 'model USP.py' file, this is the model code, and a folder called input data, this contains one or more excel files that contain the input data for the model.
+It may or may not also contain an html object called temp-plot, this may be ignored.
