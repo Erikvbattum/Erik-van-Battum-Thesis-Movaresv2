@@ -23,6 +23,7 @@ mpl.rcParams['legend.fontsize'] = 14
 
 lugs
 
+
 net = lugs.net
 sw = pd.read_csv('sw_south.csv')
 demand_profiles = lugs.demand_profiles
@@ -51,11 +52,11 @@ def simulate_timestep(net, sw_valid):
 # moet line loadings zijn
 
 
+sw.apply
 
 
 
-
-def run_timeseries(net, sw, demand_profiles):   
+def run_timeseries(net, sw_valid, demand_profiles):   
     results = dict()
     for t, step in demand_profiles.iterrows():
         print("Timestep %s" % t)
@@ -109,12 +110,12 @@ def run_timeseries(net, sw, demand_profiles):
         net.sgen.iat[ 11 , 2] = 0.3368*demand_profiles.at[t, 'pv_veld_1_MW']
         net.sgen.iat[ 12 , 2] = 0.1231*demand_profiles.at[t, 'pv_veld_1_MW']
         net.sgen.iat[ 13 , 2] = 0.2322*demand_profiles.at[t, 'pv_veld_1_MW']
-        results[t] = simulate_timestep(net, sw)
+        results[t] = simulate_timestep(net, sw_valid)
         print(t, ' uit 99 volbracht')
     return pd.DataFrame(results).T
 
 
-results = run_timeseries(net, sw, demand_profiles)
+results = run_timeseries(net, sw_valid, demand_profiles)
 
 
 results.head()
