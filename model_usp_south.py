@@ -87,21 +87,21 @@ for t in i:
     
     #######################################################################   Diagnostiek   #######################################################
     
-    energiegebruik = energiegebruik + net.res_load['p_mw'].sum()      ### voor het berekenen ven het totale energiegebruik, somt alle lasten.
+    #energiegebruik = energiegebruik + net.res_load['p_mw'].sum()      ### voor het berekenen ven het totale energiegebruik, somt alle lasten.
     
     results[t] = net.res_line.loading_percent.max()
     
     
     list_kabelbelastingen = net.res_line.loading_percent.values.tolist()
-    list_kabelbelastingen_groterdan_50 = [item for item in list_kabelbelastingen if item > 50]
-    list_kabelbelastingen_groterdan_50 = [i - 50 for i in list_kabelbelastingen_groterdan_50]
+    list_kabelbelastingen_groterdan_100 = [item for item in list_kabelbelastingen if item > 100]
+    list_kabelbelastingen_groterdan_100 = [i - 100 for i in list_kabelbelastingen_groterdan_100]
     
     
-    kwadratensom = sum(i*i for i in list_kabelbelastingen_groterdan_50)
+    kwadratensom = sum(i*i for i in list_kabelbelastingen_groterdan_100)
     totale_kwadratensom = totale_kwadratensom + kwadratensom
     
     
-    if len(list_kabelbelastingen_groterdan_50) > 0:
+    if len(list_kabelbelastingen_groterdan_100) > 0:
         overbelastingsuren = overbelastingsuren + 1
     
     

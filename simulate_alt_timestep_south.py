@@ -33,6 +33,7 @@ def simulate_timestep(net, sw):
     for i, par in sw[sw.valid].iterrows():
         net.switch.closed = True
         net.switch.closed.loc[par.switches] = False
+        print(net.switch.closed)
         pp.runpp(net)
         line_loading_valid = (net.res_line.loading_percent < 50).all()
         if not line_loading_valid:
