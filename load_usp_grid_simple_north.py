@@ -190,9 +190,9 @@ pp.create_load(net, bus=bus_3406, p_mw=1.60*demand_profiles.at[t, 'onderwijs_nie
 pp.create_load(net, bus=bus_84499, p_mw=1.00*(demand_profiles.at[t, 'res_2']/14.5), name="Load_84499")
 
 
-bus_zonpv_rivmoost = pp.create_bus(net, vn_kv = 10., name = 'bus_zonpv_rivmoost', type = 'n')
-line_zonpv_rivmoost = pp.create_line(net, from_bus=bus_zonpv_rivmoost, to_bus=bus_sorbonne, length_km=0.3, name='lijn_zonpv_rivmoost',std_type="630_AL_XLPE")
-pp.create_sgen(net, bus=bus_zonpv_rivmoost, p_mw=3.5*demand_profiles.at[t, 'pv_veld_1_MW'], name='zonpv_rivmoost') #1 deel van de 10.5ha 12.5mw nature inclusive pv fields (andere deel op oostelijke tolakkervelden)
+#bus_zonpv_rivmoost = pp.create_bus(net, vn_kv = 10., name = 'bus_zonpv_rivmoost', type = 'n')
+#line_zonpv_rivmoost = pp.create_line(net, from_bus=bus_zonpv_rivmoost, to_bus=bus_sorbonne, length_km=0.3, name='lijn_zonpv_rivmoost',std_type="630_AL_XLPE")
+pp.create_sgen(net, bus=bus_84474, p_mw=3.5*demand_profiles.at[t, 'pv_veld_1_MW'], name='zonpv_rivmoost') #1 deel van de 10.5ha 12.5mw nature inclusive pv fields (andere deel op oostelijke tolakkervelden)
 
 
 
@@ -364,9 +364,9 @@ pp.create_load(net, bus=bus_84436_3, p_mw=0.63*demand_profiles.at[t, 'lab_oud'],
 
 
 
-bus_zonpv_rivmnoord = pp.create_bus(net, vn_kv = 10., name = 'bus_zonpv_rivmnoord', type = 'n')
-line_zonpv_rivmnoord = pp.create_line(net, from_bus=bus_zonpv_rivmnoord, to_bus=bus_sorbonne, length_km=0.3, name='lijn_zonpv_rivmnoord',std_type="630_AL_XLPE")
-pp.create_sgen(net, bus=bus_zonpv_rivmnoord, p_mw=2.5*demand_profiles.at[t, 'pv_veld_1_MW'], name='pv_rivmnoord') #1 helft van de 4ha 5mw research pv fields (andere helft op schapenveld)
+#bus_zonpv_rivmnoord = pp.create_bus(net, vn_kv = 10., name = 'bus_zonpv_rivmnoord', type = 'n')
+#line_zonpv_rivmnoord = pp.create_line(net, from_bus=bus_zonpv_rivmnoord, to_bus=bus_sorbonne, length_km=0.3, name='lijn_zonpv_rivmnoord',std_type="630_AL_XLPE")
+pp.create_sgen(net, bus=bus_84437, p_mw=2.5*demand_profiles.at[t, 'pv_veld_1_MW'], name='pv_rivmnoord') #1 helft van de 4ha 5mw research pv fields (andere helft op schapenveld)
 
 
 
@@ -975,8 +975,8 @@ pp.create_sgen(net, bus=bus_6999, p_mw=0.034*demand_profiles.at[t, 'pv_veld_1_MW
 
 pp.create_sgen(net, bus=bus_1922, p_mw=0.4*demand_profiles.at[t, 'pv_veld_1_MW'], name='pv_1922')
 
-bus_zonpv_schapenveld = pp.create_bus(net, vn_kv = 10., name = 'bus_zonpv_schapenveld', type = 'n')
-line_zonpv_schapenveld = pp.create_line(net, from_bus=bus_zonpv_schapenveld, to_bus=bus_sorbonne, length_km=0.5, name='lijn_zonpv_schapenveld',std_type="630_AL_XLPE")
-pp.create_sgen(net, bus=bus_zonpv_schapenveld, p_mw=2.5*demand_profiles.at[t, 'pv_veld_1_MW'], name='pv_zonpv_schapenveld') #1 helft van de 4ha 5mw research pv fields (andere helft op veldje tussen leuvenlaan en weg tot de wetenschap in)
+#bus_zonpv_schapenveld = pp.create_bus(net, vn_kv = 10., name = 'bus_zonpv_schapenveld', type = 'n')
+#line_zonpv_schapenveld = pp.create_line(net, from_bus=bus_zonpv_schapenveld, to_bus=bus_sorbonne, length_km=0.5, name='lijn_zonpv_schapenveld',std_type="630_AL_XLPE")
+pp.create_sgen(net, bus=bus_2453, p_mw=2.5*demand_profiles.at[t, 'pv_veld_1_MW'], name='pv_zonpv_schapenveld') #1 helft van de 4ha 5mw research pv fields (andere helft op veldje tussen leuvenlaan en weg tot de wetenschap in)
 
 pp.create_sgen(net, bus=bus_8563, p_mw=0.3*demand_profiles.at[t, 'pv_veld_1_MW'], name='pv_8563') #Solar carports

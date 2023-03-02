@@ -23,32 +23,39 @@ mpl.rcParams['legend.fontsize'] = 14
 
 lugn
 
+
 net = lugn.net
 sw = pd.read_csv('sw_north.csv')
 demand_profiles = lugn.demand_profiles
 
+totale_kwadratensom = 0
+overbelastingsuren = 0
+
+sw_valid = sw[sw.valid]
+sw_valid = sw_valid.reset_index()
+sw_valid = sw_valid.switches
+sw_valid = sw_valid.apply(eval)
 
 def test_switching_state(par):
     net.switch.closed = True
-    net.switch.closed.loc[par.switches] = False
+    net.switch.closed[par] = False
     pp.runpp(net)
-    line_loading_valid = (net.res_line.loading_percent < 50).all()
+    #line_loading_valid = (net.res_line.loading_percent < 150).all()
     
-    return pd.Series({"switches": par.switches, "max_line_loading": net.res_line.loading_percent.max(), "is_valid": line_loading_valid})
+    return pd.Series({"switches": par, "max_line_loading": net.res_line.loading_percent.max()})
 
 
-def simulate_timestep(net, sw):
-    results = sw[sw.valid].apply(test_switching_state, axis=1)
-    results = results.reset_index()
-    valid_results = results[results.is_valid]
+def simulate_timestep(net, sw_valid):
+    results = sw_valid.apply(test_switching_state)
+    #valid_results = results[results.is_valid]
     
-    return valid_results.iloc[valid_results.max_line_loading.idxmin()]
+    return results.loc[results.max_line_loading.idxmin()]
 
 
 
 
 
-def run_timeseries(net, sw, demand_profiles):   
+def run_timeseries(net, sw_valid, demand_profiles, totale_kwadratensom, overbelastingsuren):   
     results = dict()
     for t, step in demand_profiles.iterrows():
         print("Timestep %s" % t)
@@ -127,12 +134,25 @@ def run_timeseries(net, sw, demand_profiles):
         net.sgen.iat[ 8 , 2] = 0.0413*demand_profiles.at[t, 'pv_veld_1_MW']
         net.sgen.iat[ 9 , 2] = 2.5*demand_profiles.at[t, 'pv_veld_1_MW']
         net.sgen.iat[ 10 , 2] = 0.3*demand_profiles.at[t, 'pv_veld_1_MW']
-        results[t] = simulate_timestep(net, sw)
-        print(t, ' uit 8760 volbracht')
+        results[t] = simulate_timestep(net, sw_valid)
+        
+        list_kabelbelastingen = net.res_line.loading_percent.values.tolist()
+        list_kabelbelastingen_groterdan_100 = [item for item in list_kabelbelastingen if item > 100]
+        list_kabelbelastingen_groterdan_100 = [i - 100 for i in list_kabelbelastingen_groterdan_100]
+        
+        
+        kwadratensom = sum(i*i for i in list_kabelbelastingen_groterdan_100)
+        totale_kwadratensom = totale_kwadratensom + kwadratensom
+        
+        
+        if len(list_kabelbelastingen_groterdan_100) > 0:
+            overbelastingsuren = overbelastingsuren + 1
+        
+        print(t, ' uit 24 volbracht')
     return pd.DataFrame(results).T
 
 
-results = run_timeseries(net, sw, demand_profiles)
+results = run_timeseries(net, sw_valid, demand_profiles, totale_kwadratensom, overbelastingsuren)
 
 
 results.head()

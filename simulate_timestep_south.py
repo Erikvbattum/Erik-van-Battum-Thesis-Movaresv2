@@ -52,7 +52,7 @@ def simulate_timestep(net, sw_valid):
     return results.loc[results.max_line_loading.idxmin()]
 
 
-sw.apply
+#sw.apply
 
 
 
@@ -110,7 +110,9 @@ def run_timeseries(net, sw_valid, demand_profiles, totale_kwadratensom, overbela
         net.sgen.iat[ 11 , 2] = 0.3368*demand_profiles.at[t, 'pv_veld_1_MW']
         net.sgen.iat[ 12 , 2] = 0.1231*demand_profiles.at[t, 'pv_veld_1_MW']
         net.sgen.iat[ 13 , 2] = 0.2322*demand_profiles.at[t, 'pv_veld_1_MW']
+        
         results[t] = simulate_timestep(net, sw_valid)
+        
         list_kabelbelastingen = net.res_line.loading_percent.values.tolist()
         list_kabelbelastingen_groterdan_100 = [item for item in list_kabelbelastingen if item > 100]
         list_kabelbelastingen_groterdan_100 = [i - 100 for i in list_kabelbelastingen_groterdan_100]
