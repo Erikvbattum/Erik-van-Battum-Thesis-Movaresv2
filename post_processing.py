@@ -16,8 +16,8 @@ net = lugs.net
 demand_profiles = lugs.demand_profiles
 
 
-df1 = pd.read_csv('results_s2_south_1')
-df2 = pd.read_csv('results_s2_south_2')
+df1 = pd.read_csv('results_s1_1')
+df2 = pd.read_csv('results_s1_2')
 
 
 frames = [df1, df2]
@@ -31,6 +31,12 @@ df_final.switches = df_final.switches.apply(eval)
 totale_kwadratensom = 0
 overbelastingsuren = 0
 i = list(df_final.index)
+
+
+def kwadrateren(x):
+    x = x - 100
+    x = x * x
+    return x
 
 
 for t in i:
@@ -96,8 +102,10 @@ for t in i:
     net.switch.closed[df_final.loc[(t-1), 'switches']] = False
     pp.runpp(net)
     
-    result = net.res_line[net.res_line['loading_percent'] > 100]
+    result = net.res_line[net.res_line['loading_percent'] > 100.000]
     print(result.loading_percent)
+    
+    totale_kwadratensom = totale_kwadratensom + sum(result.loading_percent.apply(kwadrateren))
     
     
     
