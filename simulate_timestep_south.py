@@ -124,7 +124,7 @@ def run_timeseries(net, sw_valid, demand_profiles, totale_kwadratensom, overbela
         
         if len(list_kabelbelastingen_groterdan_100) > 0:
             overbelastingsuren = overbelastingsuren + 1
-        print(t, ' uit 24 volbracht')
+        print(t, ' uit 4380 volbracht')
     return pd.DataFrame(results).T
 
 
