@@ -14,7 +14,7 @@ import pandapower as pp
 #import load_usp_grid
 
 
-demand_profiles = pd.DataFrame(pd.read_excel('Input Data/weekprofielen.xlsx', 'profielen_s3_helft2', index_col=('Uur:')))
+demand_profiles = pd.DataFrame(pd.read_excel('Input Data/weekprofielen.xlsx', 'profielen_s3', index_col=('Uur:')))
 
 t = 1
 

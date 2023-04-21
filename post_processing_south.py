@@ -13,17 +13,17 @@ import pandas as pd
 
 lugs
 net = lugs.net
-demand_profiles = lugs.demand_profiles
+demand_profiles = pd.DataFrame(pd.read_excel('Input Data/weekprofielen.xlsx', 'profielen_s3', index_col=('Uur:')))
 
 
-df1 = pd.read_csv('results_s2_north_1')
-df2 = pd.read_csv('results_s2_north_2')
-df3 = pd.read_csv('results_s2_north_3')
-df4 = pd.read_csv('results_s2_north_4')
+df1 = pd.read_csv('results_s3_helft1')
+df2 = pd.read_csv('results_s3_helft2')
 
 
-frames = [df1, df2, df3, df4]
+frames = [df1, df2]
 df = pd.concat(frames)
+
+df = df.reset_index()
 
 
 df_final = df[df['max_line_loading'] > 100]
