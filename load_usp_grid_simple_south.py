@@ -9,12 +9,13 @@ Created on Wed Feb 22 12:11:20 2023
 import pandas as pd
 
 import pandapower as pp
+from pandapower import plotting as plot
 
 
 #import load_usp_grid
 
 
-demand_profiles = pd.DataFrame(pd.read_excel('Input Data/weekprofielen.xlsx', 'profielen_s3', index_col=('Uur:')))
+demand_profiles = pd.DataFrame(pd.read_excel('Input Data/Weekprofielen.xlsx', 'profielen_s3', index_col=('Uur:')))
 
 t = 1
 
@@ -755,3 +756,8 @@ pp.create_load(net, bus=bus_84494_1, p_mw=0.63*demand_profiles.at[t, 'onderwijs_
 pp.create_sgen(net, bus=bus_8193, p_mw=0.1231*demand_profiles.at[t, 'pv_veld_1_MW'], name='pv_8193')
 
 pp.create_sgen(net, bus=bus_84494_1, p_mw=0.2322*demand_profiles.at[t, 'pv_veld_1_MW'], name='pv_84494_1')
+
+
+
+plot.simple_plotly(net)
+
